@@ -352,7 +352,7 @@ This project builds upon lessons learned from previous AI music experimentation 
 - AI-assisted songwriting
 - offline music generation pipelines
 
-Those experiences directly inform the architecture of AI Music Studio.
+Those experiences directly inform the architecture of Somancer Studio.
 
 ---
 
