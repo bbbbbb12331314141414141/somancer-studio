@@ -10,7 +10,7 @@ The project is designed to be modular, extensible, and privacy-focused, with sup
 
 # Vision
 
-The goal of AI Music Studio is to create an end-to-end music production environment where a user can describe an idea and receive a complete production—from concept to exported audio.
+The goal of Somancer Studio is to create an end-to-end music production environment where a user can describe an idea and receive a complete production—from concept to exported audio.
 
 The application combines:
 
