@@ -1,4 +1,14 @@
-# PolyForm Noncommercial License 1.0.0
+
+License Name: PolyForm Noncommercial License 1.0.0
+Type: Source-Available
+Commercial Use: Not Permitted
+Modification: Permitted
+Distribution: Permitted
+Private Use: Permitted
+Patent Grant: Included
+Sublicensing: Not Permitted
+Warranty: None ("AS IS")
+
 
 <https://polyformproject.org/licenses/noncommercial/1.0.0>
 
