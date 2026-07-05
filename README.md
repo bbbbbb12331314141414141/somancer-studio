@@ -1,4 +1,4 @@
-### Somancer Studio
+![Logo](https://adrianplays3.neocities.org/assets/ade034c3-8d49-4bb6-a84e-95f430cd912e.png)
 
 > A cross-platform, offline-first AI-powered music production suite built with specialized AI agents.
 
