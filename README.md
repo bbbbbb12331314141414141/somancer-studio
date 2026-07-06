@@ -2,7 +2,7 @@
 
 > A cross-platform, offline-first AI-powered music production suite built with specialized AI agents.
 
-AI Music Studio is an integrated desktop application designed to help creators generate complete songs using a collaborative team of AI agents. Rather than relying on a single general-purpose language model, the application uses multiple specialized agents that work together to produce lyrics, melodies, arrangements, harmonies, and final audio.
+Somancer Studio is an integrated desktop application designed to help creators generate complete songs using a collaborative team of AI agents. Rather than relying on a single general-purpose language model, the application uses multiple specialized agents that work together to produce lyrics, melodies, arrangements, harmonies, and final audio.
 
 The project is designed to be modular, extensible, and privacy-focused, with support for running entirely offline using local AI models.
 
