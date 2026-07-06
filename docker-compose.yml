@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # FastAPI Backend
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    container_name: sonmancer-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./sonmancer.db
+      - OLLAMA_HOST=http://ollama:11434
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=development
+    volumes:
+      - ./packages/backend:/app
+      - sonmancer-data:/data
+    command: >
+      bash -c "
+      alembic upgrade head &&
+      uvicorn aimusic.main:app --host 0.0.0.0 --port 8000 --reload
+      "
+    depends_on:
+      - ollama
+    networks:
+      - sonmancer
+
+  # Ollama (optional, can run externally)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: sonmancer-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    networks:
+      - sonmancer
+    # Uncomment to pull models on startup
+    # profiles:
+    #   - with-models
+
+  # (Optional) PostgreSQL for production-ready database
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: sonmancer-postgres
+  #   environment:
+  #     POSTGRES_USER: sonmancer
+  #     POSTGRES_PASSWORD: dev-password
+  #     POSTGRES_DB: sonmancer
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   networks:
+  #     - sonmancer
+
+volumes:
+  sonmancer-data:
+  ollama-data:
+  # postgres-data:
+
+networks:
+  sonmancer:
+    driver: bridge
