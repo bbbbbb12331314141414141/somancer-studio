@@ -183,4 +183,4 @@ sonmancer-studio/
 
 ## License
 
-MIT — see `LICENSE`
+ Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0) — see `LICENSE`
