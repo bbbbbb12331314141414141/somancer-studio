@@ -1,0 +1,80 @@
+site_name: Sonmancer Studio
+site_description: Cross-platform AI music production environment
+site_author: Sonmancer Studio Contributors
+repo_url: https://github.com/yourusername/sonmancer-studio
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.instant
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+  logo: assets/mark.svg
+  favicon: assets/favicon.svg
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Setup: SETUP.md
+      - System Check: system-check.md
+      - Dependencies: dependencies.md
+      - Windows Setup: WINDOWS.md
+  - Guides:
+      - Architecture: ARCHITECTURE.md
+      - API Reference: API.md
+      - Genre Research: genre-research.md
+      - Genre Fusion: genre-fusion.md
+      - Neural Audio: neural-audio.md
+      - Vocal Synthesis: vocal-synthesis.md
+      - Song Studio: song-studio.md
+      - Sound Library: sound-library.md
+      - Plugin SDK: plugin-sdk.md
+      - Code Signing: SIGNING.md
+      - Brand Assets: brand-assets.md
+  - Development:
+      - Coding Standards: CODING_STANDARDS.md
+      - Roadmap: PHASES.md
+      - Troubleshooting: troubleshooting.md
+      - Code Audit: AUDIT.md
+  - Phase Notes:
+      - Phase 0 — Foundation: PHASE0-ACTIONPLAN.md
+      - Phase 1 — Core Platform: PHASE1-IMPLEMENTATION.md
+      - Phase 2 — Editors: PHASE2-IMPLEMENTATION.md
+      - Phase 3 — AI Core: PHASE3-IMPLEMENTATION.md
+      - Phase 4 — Audio: PHASE4-IMPLEMENTATION.md
+      - Phase 5 — Mix & Master: PHASE5-IMPLEMENTATION.md
+      - Phase 6 — Plugins: PHASE6-IMPLEMENTATION.md
+      - Phase 7 — Export: PHASE7-IMPLEMENTATION.md
+      - Phase 8 — Polish: PHASE8-IMPLEMENTATION.md
+      - Phase 9 — Release Candidate: PHASE9-IMPLEMENTATION.md
+  - Release Notes:
+      - Changelog: CHANGELOG.md

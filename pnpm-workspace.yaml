@@ -1,0 +1,19 @@
+packages:
+  - 'packages/desktop'
+  - 'packages/backend'
+  - 'packages/shared'
+
+# pnpm 10+ requires explicit approval for packages that run install scripts.
+# esbuild only downloads its prebuilt binary here — safe to allow.
+allowBuilds:
+  esbuild: true
+  '@tauri-apps/cli': true
+  lightningcss: true
+
+onlyBuiltDependencies:
+  - esbuild
+  - '@tauri-apps/cli'
+  - lightningcss
+
+overrides:
+  typescript: '^5.6.0'
