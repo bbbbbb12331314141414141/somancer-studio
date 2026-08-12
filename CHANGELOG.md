@@ -5,6 +5,117 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 
 ---
 
+## [1.7.1] — Setup script parity
+
+A systematic diff of the two setup scripts found three gaps present in both,
+and one in PowerShell alone.
+
+### Added
+- **Piper voice download** — missing from *both* scripts. The engine was
+  installed but had no voice model, so it reported itself unavailable and
+  song generation stayed on the robotic espeak guide. Both scripts now fetch
+  `en_US-lessac-medium` (~60 MB) by default.
+- **`scripts/fetch_piper_voice.py`** — the download logic lives in one Python
+  file that both scripts call, rather than being reimplemented in bash and
+  PowerShell where the two copies drift. That drift is exactly how espeak-ng
+  went missing from PowerShell for four releases.
+- **Readiness report in PowerShell.** The bash script printed one; Windows
+  users had no equivalent, so a missing dependency was only discovered
+  mid-generation. Both now report the same 13 features.
+- Two new report lines in both scripts: **Natural vocals** (Piper) and
+  **Singing synthesis** (onnxruntime), each naming the command that enables
+  it.
+
+### Fixed
+- The PowerShell Piper block referenced `$ScriptDir`, which is never defined
+  — PowerShell would have passed an empty path silently. Now `$PSScriptRoot`.
+
+### Tests
+17 new tests: each of 14 features asserted present in both scripts, matching
+extras, the shared helper parsing, and PowerShell brace balance. **628
+passing** (was 610).
+
+---
+
+## [1.7.0] — More vocal options, and all of them reachable
+
+### Fixed
+- **The Song Studio dropdown was hardcoded to four options.** Six engines
+  existed, so DiffSinger, Parler-TTS, and RVC were unreachable from the UI
+  even when installed. It now reads the live registry, showing every engine
+  with its quality, whether it sings, download size, and licence — with
+  unavailable ones disabled rather than hidden.
+- **Piper reported itself available whenever the library imported**, but it
+  also needs a voice model. Every synthesis call then failed with a bare
+  `FileNotFoundError: en_US-lessac-medium.json`. Availability now requires an
+  actual voice, and the message says how to get one.
+
+### Added
+- **Piper** — MIT licensed, ~60 MB, runs on CPU. Clearly more natural than
+  the espeak guide and safe to release, which makes it the best default for
+  anyone who wants better vocals without a multi-gigabyte download.
+- **Hugging Face voice banks** — DiffSinger sings properly but previously
+  required finding, exporting, and configuring a bank by hand. Known banks
+  with published ONNX weights can now be downloaded in one call.
+- **Coqui XTTS v2** — the most natural speech available offline, cloning a
+  voice from about six seconds of reference audio. Flagged non-commercial,
+  because its licence forbids commercial use and that is easy to miss.
+- `GET /mix/vocals/banks`, `POST /mix/vocals/download-bank`, and
+  `POST /mix/vocals/download-piper-voice`.
+- The UI explains the selected engine inline — what it does, what it costs,
+  and a warning when the licence forbids commercial release.
+- `[vocals]` now installs Piper and huggingface-hub; `[vocals-neural]` adds
+  XTTS.
+
+### Nine engines
+espeak · piper · pyttsx3 · bark · parler · xtts · hf-singer · diffsinger ·
+rvc — four of which sing, and four of which are commercially usable.
+
+### Tests
+15 new tests covering registry completeness, licence accuracy, the Piper
+voice requirement, and voice-bank metadata. **610 passing** (was 596).
+
+---
+
+## [1.6.2] — Song generation no longer fails at 80%
+
+80% is the vocal stage, and on Windows it had nothing to fall back to.
+
+### Fixed
+- **The Windows setup script never installed espeak-ng.** The Linux script
+  did; the omission meant `best_available()` returned `None` at exactly the
+  vocal stage. Now installed via winget, including adding it to PATH when
+  winget does not.
+- **A vocal failure discarded the whole song.** A finished instrumental
+  should never be thrown away because the vocal take failed. The stage now
+  survives `RuntimeError`, `MemoryError`, `OSError`, and subprocess timeouts,
+  returning the instrumental with an explanation.
+- **Failed jobs reported an empty error.** `job.error = str(exc)`, and every
+  httpx timeout and connection error stringifies to `""` — so a failure
+  surfaced as a blank message with no indication of which stage died. Errors
+  now read `Failed during 'Synthesising vocals' — ReadTimeout`, with the
+  traceback in `metadata.traceback`.
+- **`JobResponse` had no `metadata` field**, so Pydantic silently dropped it
+  and the current stage never reached the UI.
+- **No subprocess had a timeout.** espeak, fluidsynth, and ffmpeg could hang
+  indefinitely, stalling the job with no recovery. Now 60 s, 600 s, and 300 s.
+- **Manifest writing was unguarded** — a failure there lost a song that was
+  otherwise complete on disk.
+
+### Added
+- The generate request **warns before you wait** when no vocal engine is
+  installed, rather than letting you discover it at 80%.
+- A `Vocal synthesis` readiness check naming the available engines.
+- The UI reports which stage failed, and reports partial success ("complete,
+  with 1 note: …") instead of unqualified success when parts are missing.
+
+### Tests
+11 new tests: vocal failure across three exception types, missing-engine
+advice, manifest failure, empty-exception reporting, metadata passthrough,
+traceback capture, and subprocess timeouts. **596 passing** (was 585).
+
+---
+
 ## [1.6.1] — Unfamiliar genres are researched and offered
 
 Custom genres already appeared in Song Studio — both pages share one
