@@ -183,4 +183,4 @@ sonmancer-studio/
 
 ## License
 
- PolyForm Noncommercial License 1.0.0 — see `LICENSE`
+ PolyForm Noncommercial License 1.0.0 — see [`LICENSE`](https://github.com/bbbbbb12331314141414141/somancer-studio/blob/main/LICENSE)
