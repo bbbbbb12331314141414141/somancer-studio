@@ -183,4 +183,4 @@ sonmancer-studio/
 
 ## License
 
- Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0) — see `LICENSE`
+ PolyForm Noncommercial License 1.0.0 — see `LICENSE`
